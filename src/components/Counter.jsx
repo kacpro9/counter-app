@@ -5,27 +5,29 @@ import Step from "./Step";
 import "./Counter.css";
 const Counter = (props) => {
   const [counter, setCounter] = useState(props.counterInitValue);
+  const [stepValue, setStepValue] = useState(1);
+
+  const handleChange = (event) => {
+    const newStep = Math.max(1, Number(event.target.value)) ;
+    setStepValue(newStep);
+  };
   
 
   const updateCounter = (action) => {
     if (action === "add") {
-      setCounter(counter + 1);
-    } else if (action === "reset") {
-      setCounter(props.counterInitValue);
+      setCounter(props.counterInitValue + stepValue);
+    } else if (action === "substract") {
+      setCounter(prev => prev - stepValue);
     } else if (action === "zero") {
       setCounter(0);
     }
   };
 
-  useEffect(() => {
-    console.log("Wywołanie useEffect");
-  },[counter]);
-
   return (
     <div className="counter">
       <Display counter={counter} />
-      <ButtonsPanel updateCounter={updateCounter} />
-      <Step />
+      <ButtonsPanel updateCounter={updateCounter} stepValue={stepValue}/>
+      <Step handleChange={handleChange}/>
     </div>
   );
 };
