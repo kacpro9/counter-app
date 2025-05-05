@@ -5,7 +5,7 @@ import Step from "./Step";
 import "./Counter.css";
 const Counter = (props) => {
   const [counter, setCounter] = useState(props.counterInitValue);
-  const [showClock, setShowClock] = useState(true);
+  
 
   const updateCounter = (action) => {
     if (action === "add") {
